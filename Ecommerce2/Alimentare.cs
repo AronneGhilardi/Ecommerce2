@@ -49,7 +49,7 @@ namespace Ecommerce2
             }
         }
 
-        public void Applicare()
+        public void ApplicareSconto()
         {
             if (DateTime.Today.DayOfWeek - Scadenza.DayOfWeek < 7)
             {
