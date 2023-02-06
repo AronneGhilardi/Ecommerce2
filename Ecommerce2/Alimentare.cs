@@ -12,7 +12,7 @@ namespace Ecommerce2
         private decimal _prezzoscontato;
         private string[] _ingredienti;
 
-        public Alimentare(string id, string nome, string prod, decimal prezzo, string descr, DateTime scadenza) : base(id, nome, prod, descr, prezzo)
+        public Alimentare(string id, string nome, string prod, string descr, decimal prezzo, DateTime scadenza) : base(id, nome, prod, descr, prezzo)
         {
             Scadenza = scadenza;
             PrezzoScontato = prezzo;
@@ -27,7 +27,7 @@ namespace Ecommerce2
             }
             private set
             {
-                if (value > DateTime.Today)
+                if (value >= DateTime.Today)
                     _scadenza = value;
                 else
                     throw new Exception("Inserire un codice valido");

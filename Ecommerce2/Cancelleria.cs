@@ -11,7 +11,7 @@ namespace Ecommerce2
         public int _grammatura;
         public string _funzionamento;
 
-        public Cancelleria(string id, string nome, string prod, decimal prezzo, string descr, int grammatura, string funzionamento) : base(id, nome, prod, descr, prezzo)
+        public Cancelleria(string id, string nome, string prod, string descr, decimal prezzo, int grammatura, string funzionamento) : base(id, nome, prod, descr, prezzo)
         {
             Grammatura = grammatura;
             Funzionamento = funzionamento;
@@ -25,7 +25,7 @@ namespace Ecommerce2
             }
             set
             {
-                if (value > 0)
+                if (value >= 0)
                     _grammatura = value;
                 else
                     throw new Exception("Grammatura errata");

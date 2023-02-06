@@ -11,7 +11,7 @@ namespace Ecommerce2
         private string _codicemodello;
         private decimal _prezzoscontato;
 
-        public Elettronico(string id, string nome, string produttore, decimal prezzo, string descrizine, string codicemodello)
+        public Elettronico(string id, string nome, string produttore, string descrizione, decimal prezzo, string codicemodello) : base(id, nome, produttore, descrizione, prezzo)
         {
             CodiceModello = codicemodello;
             PrezzoScontato = prezzo;
