@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ecommerce2
+namespace Ecommerce
 {
     public class Carrello
     {
         private string _id;
-        private Prodotto[] _prodotti = new Prodotto[100];
+        private List<Prodotto> _prodotti = new List<Prodotto>();
 
         public string Id
         {
@@ -25,103 +25,76 @@ namespace Ecommerce2
                     throw new Exception("Inserire un id correggiuto");
             }
         }
-
+        public List<Prodotto> Prodotti
+        {
+            get
+            {
+                return _prodotti;
+            }
+        }
         public Prodotto getProdotto(int i)
         {
             return _prodotti[i];
         }
-
         public Carrello(string id)
         {
             this.Id = id;
             Svuota();
         }
-
-        private int getNumProdotti()
-        {
-            int i = 0;
-            while (i < _prodotti.Length && _prodotti[i] != null)
-            {
-                i++;
-            }
-
-            if (i != _prodotti.Length)
-                return i;
-            else
-                throw new Exception("Il carrello è pieno");
-        }
-
         public void Aggiungi(Prodotto p)
         {
             if (p != null)
             {
                 p.ApplicaS();
-                _prodotti[getNumProdotti()] = p;
+                _prodotti.Add(p);
             }
             else
                 throw new Exception("Inserire un prodotto valido");
         }
-
         public Prodotto Rimuovi(Prodotto p)
         {
-            int pos = Cerca(p);
-            if (pos != -1)
+            if (_prodotti.Remove(p))
             {
-                _prodotti[pos] = null;
-
-                for (int i = pos; i < 99; i++)
-                {
-                    _prodotti[i] = _prodotti[i + 1];
-                }
                 return p;
             }
             else
                 throw new Exception("Prodotto non esistente!");
         }
-
         public int Cerca(Prodotto p)
         {
-            int pos = -1;
-            for (int i = 0; i < 99; i++)
-            {
-                if (_prodotti[i] == p)
-                {
-                    pos = i;
-                }
-            }
-            return pos;
+            return _prodotti.IndexOf(p);
         }
-
         public void Svuota()
         {
-            for (int i = 0; i < 100; i++)
-            {
-                _prodotti[i] = null;
-            }
+            _prodotti.Clear();
         }
-
         public decimal Calctot()
         {
             decimal tot = 0;
-            for (int i = 0; i < 99; i++)
+            foreach (Prodotto p in this.Prodotti)
             {
-                if (_prodotti[i] != null)
-                {
-                    tot += _prodotti[i].Prezzo;
-                }
+                tot += p.Prezzo;
             }
             return tot;
         }
-
         public decimal Calctots()
         {
             decimal tot = 0;
-            for (int i = 0; i < 99; i++)
+            foreach (Prodotto p in this.Prodotti)
             {
-                if (_prodotti[i] != null)
+                tot += p.Scontato;
+            }
+            int c = 0;
+            foreach (Prodotto p in this.Prodotti)
+            {
+                if (p.GetType() == typeof(PElettronico))
                 {
-                    tot += _prodotti[i].Scontato;
+                    c = 1;
                 }
+            }
+            if (c == 1)
+            {
+                tot -= tot * (5 / 100);
             }
             return tot;
         }

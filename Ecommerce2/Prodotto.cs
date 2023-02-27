@@ -125,7 +125,7 @@ namespace Ecommerce2
             }
         }
 
-        public decimal Scontato
+        virtual decimal Scontato
         {
             get
             {

@@ -32,7 +32,7 @@ namespace Ecommerce2
             }
         }
 
-        public decimal PrezzoScontato
+        override decimal PrezzoScontato
         {
             get
             {
